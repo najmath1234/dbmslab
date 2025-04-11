@@ -1,0 +1,73 @@
+-- 
+-- Roll No: 39
+-- Name: NAJMATH MV
+-- Program: Assignment - I
+-- 
+
+
+--
+-- Table structure for table books
+--
+
+Create table books (accno int auto_increment primary key,title varchar(100) not null,author varchar(50) not null,price float(6,2),type enum('lending', 'reference'),availability enum('yes', 'no'),publisherid int, foreign key (publisherid) references publishers(publisherid));
+
+--
+-- Table structure for table publishers
+--
+
+create table publishers (publisherid int auto_increment primary key,name varchar(50) not null unique,address varchar(100));
+
+--
+-- Table structure for table members
+--
+
+create table members (memberid int auto_increment primary key,name varchar(50) not null,address varchar(100),type enum('staff', 'student'));
+
+--
+-- Table structure for table issues
+--
+
+create table issues (issueid int auto_increment primary key,memberid int,accno int,issuedate date,duedate date,foreign key (memberid) references members(memberid),foreign key (accno) references books(accno));
+
+--
+-- Table structure for table returns
+--
+
+create table returns (returnid int auto_increment primary key,memberid int,accno int,returndate date,fine int default 0 check (fine >= 0),foreign key(memberid) references members(memberid),foreign key (accno) references books(accno));
+
+--
+-- Dumping data for table publishers
+--
+
+insert into publishers (name, address)values ('Vintage Books', '30 Victoria Embankment, London, UK'),('Pan Macmillan', '6 Briset Street, London, UK'),('Bloomsbury Publishing', '50 Bedford Square, London, UK'),('Little, Brown and Company', '1290 Avenue of the Americas, New York, NY'),('Anchor Books', '1745 Broadway, New York, NY 10019');
+
+--
+-- Dumping data for table books
+--
+
+insert into books (title, author, price, type, availability, publisherid)values('The Catcher in the Rye', 'J.D. Salinger', 359.99, 'lending', 'yes', 1),('The Road', 'Cormac McCarthy', 499.99, 'lending', 'no', 2),('The Hobbit', 'J.R.R. Tolkien', 599.50, 'reference', 'yes', 3),('Becoming', 'Michelle Obama', 699.99, 'lending', 'yes', 4),('The Book Thief', 'Markus Zusak', 249.99, 'reference', 'no', 5);
+
+--
+-- Dumping data for table members
+--
+
+insert into members (name, address, type)values('Sophie Turner', '12 Maple Street', 'staff'),('Liam Cooper', '45 Elm Avenue', 'student'),('Emma Wilson', '78 Birch Lane', 'staff'),('Lucas Martinez', '90 Pine Road', 'student'),('Olivia Brown', '34 Cedar Court', 'student');
+ 
+--
+-- Dumping data for table issues
+--
+
+insert into issues (memberid, accno, issuedate, duedate)values(1, 1, '2025-03-20', '2025-04-03'),(2, 2, '2025-03-22', '2025-04-05'),(3, 3, '2025-03-25', '2025-04-08'),(4, 4, '2025-03-28', '2025-04-11'),(5, 5, '2025-03-30', '2025-04-13');
+
+--
+-- Dumping data for table returns
+--
+
+insert into returns (memberid, accno, returndate, fine)values(1, 1, '2025-03-31', 0),(2, 2, '2025-04-01', 20),(3, 3, '2025-04-07', 0),(4, 4, '2025-04-10', 50),(5, 5, '2025-04-12', 0);
+
+--
+-- SQl Query Statements
+--
+
+-- -----SQL query statments preceeded by the its question-------- # This line may be removed in the actual file
+-- -----Question number should be commented---------------#This line may be removed in the actual file
